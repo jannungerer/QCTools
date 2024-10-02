@@ -22,18 +22,21 @@ def saveNd(data=np.array([None]),meas_name='measurement_name',comment='',data_na
     if n>2:
         do_plot=False
         
-    if set_vals==None:
-        set_vals=[]
-        for i in range(n):
-            set_vals.append(np.arange(data.shape[i]))
-    if set_names==None:
-        set_names=[]
-        for i in range(n):
-            set_names.append('Set_Param_'+str(i))
-    if set_units==None:
-        set_units=[]
-        for i in range(n):
-            set_units.append('a.u.')
+    if not type(set_vals)==np.ndarray:
+        if set_vals==None:
+            set_vals=[]
+            for i in range(n):
+                set_vals.append(np.arange(data.shape[i]))
+    if not type(set_vals)==np.ndarray:
+        if set_names==None:
+            set_names=[]
+            for i in range(n):
+                set_names.append('Set_Param_'+str(i))
+    if not type(set_vals)==np.ndarray:
+        if set_units==None:
+            set_units=[]
+            for i in range(n):
+                set_units.append('a.u.')
     if (not len(set_vals)==n) or (not len(set_names)==n) or (not len(set_units)==n):
         raise Exception('Shapes do not match.')
     def get_results():
