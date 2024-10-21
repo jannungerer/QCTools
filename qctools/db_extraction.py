@@ -72,7 +72,7 @@ def db_extractor(dbloc=None,
             #print('Runid',runid)
             runname = run.name
             
-            #Loadin a new run
+            #Loading a new run
             if (not ids or runid in ids) and (run.number_of_results > 0):
             
                 # Adding optional file folder settings

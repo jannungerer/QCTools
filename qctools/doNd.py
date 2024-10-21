@@ -546,4 +546,4 @@ def doNd(param_set,
     else:
         plot_by_id(measid)
     #sys.exit(0)
-    #return measid
+    return measid
