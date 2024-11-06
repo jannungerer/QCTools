@@ -5,6 +5,7 @@ from qcodes.dataset.experiment_container import load_by_id
 from QCTools.qctools.doNd import doNd
 import warnings
 import json
+from scipy.signal import detrend
 
 def saveNd(data=np.array([None]),meas_name='measurement_name',comment='',data_name='measured_data',data_unit='a.u.',set_names=None,set_vals=None,set_units=None,config_snap=None):
     # Function takes any numpy and saves it into the qcodes database.
@@ -54,7 +55,7 @@ def saveNd(data=np.array([None]),meas_name='measurement_name',comment='',data_na
                         setpoints=set_params,get_cmd=lambda: np.abs(data),
                                        vals=Arrays(shape=data.shape),unit=data_unit)
         ResPhi = qc.parameters.ParameterWithSetpoints('Arg_'+data_name,
-                        setpoints=set_params,get_cmd=lambda: np.angle(data),
+                        setpoints=set_params,get_cmd=lambda: detrend(np.unwrap(2*(np.angle(data)%np.pi))/2,type='constant'),#For an unknown reason, the OPX returns only phases between 0 and pi. -> multiply by 2 before unwrap and divide by 2 after. Then subtract average (detrend)
                                        vals=Arrays(shape=data.shape),unit='rad')
         measid=doNd(param_set = [],
               param_meas = [ResA,ResPhi], 

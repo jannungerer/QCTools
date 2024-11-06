@@ -26,6 +26,7 @@ def unique(list1):
     return unique_list 
 
 def fill_station(param_set, param_meas):
+    to=1
     station = Station()
     allinstr=qc.instrument.base.Instrument._all_instruments
     for key,val in allinstr.items():
